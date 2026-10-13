@@ -12,7 +12,8 @@ export default defineConfig({
         !page.includes('hello-world') &&
         !page.includes('/media/wnrs') &&
         !page.includes('/gracias') &&
-        !page.includes('/v2'),
+        !page.includes('/v2') &&
+        !page.includes('/v3'),
     }),
   ],
 });

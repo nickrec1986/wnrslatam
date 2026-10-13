@@ -1,0 +1,208 @@
+---
+import Base from '../../layouts/Base.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import HeroVideo from '../../components/HeroVideo.astro';
+import '../../styles/v3.css';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const phone = '+52 55 5351 1693';
+const tel = 'tel:+525553511693';
+const wa = 'https://wa.me/525553511693';
+const logos = [
+  ['aeromexicocargo.png', 'Aeroméxico Cargo'],
+  ['bp.png', 'BP'],
+  ['carnival.png', 'Carnival'],
+  ['cemex.png', 'Cemex'],
+  ['dhl.png', 'DHL'],
+  ['hilton.png', 'Hilton'],
+  ['logopaypal.png', 'PayPal'],
+  ['p_e_g.png', 'P&G'],
+];
+const stats = [
+  ['#1', 'Agencia para clientes Fortune 500'],
+  ['50+', 'Años de rendimiento comprobado'],
+  ['30+', 'Países atendidos'],
+  ['20+', 'Idiomas cubiertos'],
+  ['300K+', 'Interacciones mensuales'],
+  ['99.99%', 'Tiempo de actividad'],
+  ['44.2%', 'Aumento en las cobranzas'],
+  ['$28 millones', 'Cobrados'],
+  ['73%', 'Tasa de éxito en recuperación'],
+];
+const faqs = [
+  ['¿Y si no recuperan nada?', 'No pagas el servicio. Cobramos un porcentaje de lo que efectivamente recuperamos.'],
+  ['¿Cuánto tardo en ver dinero?', 'En promedio, dentro de los primeros 15 días.'],
+  ['¿Esto es solo para deudas entre empresas?', 'No. Es cobranza B2B y B2C: carteras de empresas y de consumidores.'],
+  ['¿Van a quemar la relación con mis clientes?', 'No. El equipo actúa como extensión de tu marca y mantiene el trato profesional.'],
+  ['¿Mi empresa es muy chica o muy grande?', 'Atendemos desde PyMEs hasta multinacionales Fortune 500. El equipo se arma según tu cartera.'],
+];
+---
+
+<Base
+  title="WNRS — Recupera tu cartera vencida | Cobranza B2B y B2C"
+  description="Cobranza B2B y B2C. las empresas que usan nuestros servicios recuperan 3 veces o más, hasta 10x más rápido que las agencias convencionales, sin sacrificar la experiencia del cliente."
+  path="v3/"
+  robots="noindex,follow"
+  image="img/wnrs-video-poster.jpg"
+>
+  <header class="top">
+    <div class="wrap top-inner wide">
+      <a class="brand" href={`${base}v3/`} aria-label="WNRS">
+        <img src={`${base}img/logo-1.png`} width="150" height="48" alt="WNRS" />
+      </a>
+      <div class="top-actions">
+        <a class="quiet" href={wa}>WhatsApp</a>
+        <a class="quiet" href={tel}>{phone}</a>
+        <a class="cta" href="#oferta">Quiero el análisis</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="letter">
+    <article class="wrap">
+      <p class="kicker">Atención, CFO y director de finanzas con cartera vencida</p>
+      <h1>Nuestros clientes recuperan 3 veces o más — 10 veces más rápido.</h1>
+      <p class="sub">Cobranza B2B y B2C. Y si no cobramos, no pagas.</p>
+      <HeroVideo />
+      <p>las empresas que usan nuestros servicios recuperan 3 veces o más, hasta 10x más rápido que las agencias convencionales, sin sacrificar la experiencia del cliente.</p>
+      <p class="cta-gap"><a class="cta" href="#oferta">Quiero mi análisis gratuito</a></p>
+
+      <section class="block">
+        <h2>El problema</h2>
+        <p>Ya hiciste la venta. El dinero no entra.</p>
+        <p>¿Tus clientes están atrasados con los pagos? ¿Se niegan a pagar? ¿Tu cartera vencida creció?</p>
+        <p>Eso le pasa a carteras de empresas y a carteras de consumidores. El castigo contable no trae el efectivo de vuelta.</p>
+      </section>
+
+      <section class="block">
+        <h2>Y cada día que esperas, cobras menos</h2>
+        <p>Un equipo interno se queda corto. Una agencia convencional a veces cobra… y de paso daña la relación con tu cliente.</p>
+        <p>Más abajo están las probabilidades reales según la antigüedad de la deuda: 57% después de 90 días, 29% a los 6 meses, 13% al año. No es un plazo inventado. Es lo que pasa cuando dejas pasar el tiempo.</p>
+        <p class="cta-gap"><a class="cta" href="#oferta">Pedir el análisis antes de que baje más</a></p>
+      </section>
+
+      <section class="block">
+        <h2>La salida</h2>
+        <p>WNRS hace cobranza B2B y B2C desde hace más de 50 años, con más de 1,200 profesionales y 8 hubs en México, las Américas y Europa.</p>
+        <p>Así funciona:</p>
+        <ol>
+          <li>Pides el análisis gratuito y nos cuentas tu cartera.</li>
+          <li>Armamos una estrategia alineada a tu marca.</li>
+          <li>En promedio ves los primeros resultados en 15 días, con monitoreo en línea 24/7.</li>
+        </ol>
+        <p>Cinco vías, según el caso: cobranza administrativa, especializada, extrajudicial, investigación financiera y cobranza judicial.</p>
+      </section>
+    </article>
+
+    <section class="block" id="oferta">
+      <div class="wrap offer">
+        <p class="kicker">La oferta</p>
+        <h2>Análisis gratuito. Sin cobro, no hay pago.</h2>
+        <p>Revisamos tu cartera sin costo. Si recuperamos, cobramos un porcentaje de lo efectivamente recuperado. Si no recuperamos, no pagas el servicio.</p>
+        <ul>
+          <li>Análisis gratuito de tu cartera vencida</li>
+          <li>Sin cobro, no hay pago</li>
+          <li>Precios entre los más competitivos del mercado</li>
+          <li>Monitoreo 24/7 en línea</li>
+          <li>Resultados en 15 días, en promedio</li>
+        </ul>
+        <h3>Pide el análisis</h3>
+        <LeadForm id="lead-v3" submit="Quiero el análisis gratuito" />
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="wide">
+        <h2 class="wrap">La prueba</h2>
+        <ul class="logos">
+          {logos.map(([file, name]) => (
+            <li><img src={`${base}img/${file}`} alt={name} /></li>
+          ))}
+        </ul>
+        <div class="wrap stats">
+          {stats.map(([value, label]) => (
+            <div class="stat"><strong>{value}</strong><span>{label}</span></div>
+          ))}
+        </div>
+        <blockquote class="wrap quote">
+          <p>“Nuestra cartera morosa había crecido de forma descontrolada desde que subió el precio del dólar estadounidense. WNRS cobró durante un mes lo que mi equipo no pudo recuperar en un año.”</p>
+          <footer>Emilio Miranda, Microtech S.A. de C.V.</footer>
+        </blockquote>
+        <p class="wrap cta-gap"><a class="cta" href="#oferta">Quiero ese tipo de resultado</a></p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="wrap who">
+        <article>
+          <h3>Esto es para ti si…</h3>
+          <ul>
+            <li>Eres CFO o director de finanzas y la cartera vencida ya no entra sola.</li>
+            <li>Cobras a empresas, a consumidores, o a los dos.</li>
+            <li>Tu empresa va de una PyME a una multinacional Fortune 500.</li>
+            <li>Quieres recuperar sin sacrificar la experiencia del cliente.</li>
+          </ul>
+        </article>
+        <article>
+          <h3>No es para ti si…</h3>
+          <ul>
+            <li>Quieres pagar una cuota fija aunque no se recupere nada.</li>
+            <li>No tienes cartera vencida que cobrar.</li>
+            <li>Buscas una cobranza que queme la relación con tus clientes.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="block faq">
+      <div class="wrap">
+        <h2>Objeciones, en corto</h2>
+        {faqs.map(([q, a]) => (
+          <details>
+            <summary>{q}</summary>
+            <p>{a}</p>
+          </details>
+        ))}
+        <p class="cta-gap"><a class="cta" href="#cierre">Sí, quiero el análisis</a></p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="wrap">
+        <h2>El tiempo ya está corriendo</h2>
+        <p>Tu probabilidad de cobro baja con la antigüedad de la deuda. Estas son las cifras, no un reloj en la página.</p>
+        <div class="odds">
+          <div class="odd"><strong>57%</strong><span>Después de 90 días</span></div>
+          <div class="odd"><strong>29%</strong><span>Después de 6 meses</span></div>
+          <div class="odd"><strong>13%</strong><span>Después de 1 año</span></div>
+        </div>
+        <p class="cta-gap"><a class="cta" href="#cierre">Recupera ahora, antes de que sea tarde</a></p>
+      </div>
+    </section>
+
+    <section class="block" id="cierre">
+      <div class="wrap offer">
+        <h2>Último paso: pide el análisis</h2>
+        <p>Cuéntanos tu cartera. Te contactamos. Si no recuperamos, no pagas.</p>
+        <p><a href={tel}>{phone}</a> · <a href={wa}>WhatsApp</a></p>
+        <LeadForm id="lead-v3-cierre" submit="Empieza ya" />
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="wrap ps">
+        <p><strong>P.D.</strong> El análisis es gratuito. Sin cobro, no hay pago. Nuestros clientes recuperan 3 veces o más — 10 veces más rápido.</p>
+        <p><a class="cta" href="#oferta">Pedir mi análisis gratuito</a></p>
+      </div>
+      <p class="wrap foot">©2026 WNRS — World Net Recovery Systems. Cobranza B2B y B2C. México, Américas, Europa.</p>
+    </section>
+  </main>
+
+  <div class="dock">
+    <a href={wa}>WhatsApp</a>
+    <a href={tel}>Llamar</a>
+    <a class="cta" href="#oferta">Analizar</a>
+  </div>
+</Base>
