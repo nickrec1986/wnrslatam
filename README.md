@@ -4,6 +4,8 @@ Landing de captación para WNRS Latam. Astro 4, una página, desplegada en GitHu
 
 **Vista previa:** https://nickrec1986.github.io/wnrslatam/
 
+**Opción B (noindex):** https://nickrec1986.github.io/wnrslatam/v2/
+
 El formulario califica en dos pasos, empuja `lead_submit` al `dataLayer` y redirige a `/gracias/`. El envío vive en `src/lib/lead.ts` para conectar HubSpot después. WhatsApp y teléfono: +52 55 5351 1693.
 
 ```bash

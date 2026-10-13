@@ -11,7 +11,8 @@ export default defineConfig({
         !page.includes('wnrs-copia-original') &&
         !page.includes('hello-world') &&
         !page.includes('/media/wnrs') &&
-        !page.includes('/gracias'),
+        !page.includes('/gracias') &&
+        !page.includes('/v2'),
     }),
   ],
 });
