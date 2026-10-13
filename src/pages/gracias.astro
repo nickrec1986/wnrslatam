@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Chrome from '../components/Chrome.astro';
+import '../styles/global.css';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const pageUrl = new URL(`${base}gracias/`, Astro.site).href;
+---
+
+<Base
+  title="Recibimos tu solicitud | WNRS Latam"
+  description="Un especialista de WNRS te contacta para revisar tu cartera."
+  path="gracias/"
+  robots="noindex,follow"
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Solicitud recibida',
+    url: pageUrl,
+    inLanguage: 'es',
+  }}
+>
+  <Chrome>
+    <main class="thanks">
+      <div class="wrap">
+        <div class="card">
+          <p class="kicker">Análisis gratuito</p>
+          <h1>Recibimos tu solicitud</h1>
+          <p>Un especialista de WNRS te contacta para revisar tu cartera. Si no recuperamos, no pagas.</p>
+          <p>
+            <a class="btn" href="https://wa.me/525553511693">Escríbenos por WhatsApp</a>
+          </p>
+          <p>O llama al <a href="tel:+525553511693">+52 55 5351 1693</a>.</p>
+          <p><a href={base}>Volver al inicio</a></p>
+        </div>
+      </div>
+    </main>
+  </Chrome>
+</Base>

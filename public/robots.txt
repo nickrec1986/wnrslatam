@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nickrec1986.github.io/wnrslatam/sitemap-index.xml

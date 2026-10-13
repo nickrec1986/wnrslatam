@@ -1,184 +1,269 @@
 ---
 import Base from '../layouts/Base.astro';
+import Chrome from '../components/Chrome.astro';
 import LeadForm from '../components/LeadForm.astro';
 import '../styles/global.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
+const pageUrl = new URL(base, Astro.site).href;
+const logo = new URL(`${base}img/logo-1.png`, Astro.site).href;
+
+const logos = [
+  ['aeromexicocargo.png', 'Aeroméxico Cargo'],
+  ['bp.png', 'BP'],
+  ['carnival.png', 'Carnival'],
+  ['cemex.png', 'Cemex'],
+  ['dhl.png', 'DHL'],
+  ['hilton.png', 'Hilton'],
+  ['logopaypal.png', 'PayPal'],
+  ['p_e_g.png', 'P&G'],
+];
+const pains = [
+  '¿Tus clientes están atrasados con los pagos?',
+  '¿Se están negando a pagar?',
+  '¿Tu cartera vencida creció?',
+];
+const steps = [
+  ['Pide tu análisis', 'Cuéntanos tu empresa, tu país y cómo está tu cartera. El análisis es gratuito.'],
+  ['Armamos la estrategia', 'Un equipo especializado trabaja como extensión de tu marca, con más de 50 años de práctica.'],
+  ['Empiezas a recuperar', 'En promedio ves los primeros resultados en 15 días, con monitoreo en línea 24/7. Ocho hubs cubren México, las Américas y Europa.'],
+];
+const services = [
+  ['Cobranza administrativa', 'Gestión directa de las facturas vencidas.'],
+  ['Cobranza especializada', 'Equipos según tu sector y el tipo de deuda.'],
+  ['Cobranza extrajudicial', 'Negociación antes de una vía legal.'],
+  ['Investigación financiera', 'Localización del deudor y de su capacidad de pago.'],
+  ['Cobranza judicial', 'Cuando el expediente necesita una vía legal.'],
+];
+const industries = ['PyMEs', 'Multinacionales', 'Gobierno', 'Retail', 'Servicios financieros'];
 const stats = [
   ['#1', 'Agencia para clientes Fortune 500'],
   ['50+', 'Años de rendimiento comprobado'],
   ['30+', 'Países atendidos'],
   ['20+', 'Idiomas cubiertos'],
   ['300K+', 'Interacciones mensuales'],
-  ['99.99%', 'Tiempo de actividad del sistema'],
+  ['99.99%', 'Tiempo de actividad'],
 ];
-const points = [
-  ['Experiencia personalizada', 'Estrategias de cobranza alineadas a su marca, sus objetivos y más de 50 años de práctica. Una sola talla no alcanza.'],
-  ['Talento de clase mundial', 'Equipos entrenados para actuar como extensión de su marca, con resultados más rápidos y transparentes.'],
-  ['Presencia global y local', 'Cobertura en México, las Américas y Europa. Ocho hubs de recuperación mantienen el contacto con sus deudores.'],
-  ['Resultados en días', 'En promedio, los primeros recuperos aparecen en 15 días. El avance se monitorea en línea, 24/7.'],
-];
-const decay = [
-  ['73%', 'Después de 90 días'],
-  ['57%', 'Después de 6 meses'],
-  ['29%', 'Después de 1 año'],
-  ['13%', 'Después de 2 años'],
+const benefits = [
+  'Sin cobro = sin pago',
+  'Precios más competitivos del mercado',
+  'Monitoreo 24/7 en línea',
+  'Resultados en 15 días, en promedio',
+  'Talento incomparable',
 ];
 const faqs = [
-  ['¿Cómo funciona el modelo “sin cobro, no hay costo”?', 'Cobramos un porcentaje de lo efectivamente recuperado. Si no recuperamos, usted no paga el servicio.'],
-  ['¿Cuánto tardan los primeros resultados?', 'En promedio, dentro de los primeros 15 días empieza a entrar dinero recuperado.'],
-  ['¿Con qué tamaño de empresa trabajan?', 'Desde PyMEs hasta multinacionales Fortune 500. El equipo se arma según la cartera.'],
-  ['¿Cómo cuidan la relación con mis clientes?', 'Los especialistas actúan como extensión de su marca y mantienen el trato profesional.'],
+  ['¿Cómo funciona el modelo “sin cobro, no hay pago”?', 'Cobramos un porcentaje de lo que efectivamente recuperamos. Si no recuperamos, no pagas el servicio.'],
+  ['¿Cuánto tardas en ver los primeros resultados?', 'En promedio, dentro de los primeros 15 días empieza a entrar el dinero recuperado.'],
+  ['¿Con qué tamaño de empresa trabajan?', 'Desde PyMEs hasta multinacionales Fortune 500. El equipo se arma según tu cartera.'],
+  ['¿Cómo cuidan la relación con mis clientes?', 'Los especialistas actúan como extensión de tu marca y mantienen el trato profesional.'],
 ];
+const odds = [
+  ['57%', 'Después de 90 días'],
+  ['29%', 'Después de 6 meses'],
+  ['13%', 'Después de 1 año'],
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      name: 'WNRS',
+      legalName: 'World Net Recovery Systems',
+      url: pageUrl,
+      logo,
+      telephone: '+52-55-5351-1693',
+      areaServed: ['México', 'Américas', 'Europa'],
+      description: 'Especialistas en cobranza B2B. WNRS te ayuda a recuperar tu cartera vencida.',
+    },
+    {
+      '@type': 'WebPage',
+      name: 'WNRS – Recupera tu cartera vencida',
+      url: pageUrl,
+      inLanguage: 'es',
+      description: 'Recupera tu cartera vencida con WNRS. Análisis gratuito. Sin cobro, no hay pago.',
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(([q, a]) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    },
+  ],
+};
 ---
 
 <Base
-  title="WNRS Latam — Recupere su cartera vencida"
-  description="WNRS ayuda a empresas en México y Latinoamérica a recuperar cartera vencida. Análisis gratuito, sin cobro si no hay recuperación."
+  title="WNRS – Recupera tu cartera vencida | Especialistas en cobranza B2B"
+  description="Con más de 50 años y 1,200 profesionales, WNRS te ayuda a recuperar 3 veces más deudas y 10 veces más rápido. Análisis gratuito. Sin cobro, no hay pago."
+  jsonLd={jsonLd}
 >
-  <header class="top">
-    <div class="wrap top-inner">
-      <a href={`${base}`} aria-label="WNRS Latam">
-        <img class="logo" src={`${base}brand/logo.gif`} width="177" height="64" alt="WNRS" />
-      </a>
-      <div class="top-actions">
-        <a class="phone" href="tel:+525553511693">+52 55 5351 1693</a>
-        <a class="btn" href="#solicite">Solicitar cotización</a>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
+  <Chrome>
+    <main>
+      <section class="hero" id="solicite">
         <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <h1>Recupere su cartera vencida y conviértala en flujo de efectivo</h1>
-          <p class="lede">
-            Con más de 50 años y 1,200 profesionales, WNRS ayuda a empresas a recuperar más deuda, y más rápido, que un equipo interno tradicional.
-          </p>
-          <ul class="checks">
-            <li>¿Sus clientes están atrasados con los pagos?</li>
-            <li>¿Se están negando a pagar?</li>
-            <li>¿Su cartera vencida creció?</li>
+          <div class="hero-copy">
+            <p class="kicker">Cobranza B2B</p>
+            <h1>Recupera tu cartera vencida y transfórmala en flujo de efectivo</h1>
+            <p class="lede">
+              Con más de 50 años de experiencia y más de 1,200 profesionales, WNRS te ayuda a recuperar 3 veces más deudas, 10 veces más rápido que un equipo interno.
+            </p>
+            <a class="btn" href="#formulario">Recupera tus deudas ahora</a>
+          </div>
+          <div class="card" id="formulario">
+            <h2>Solicita tu análisis gratuito</h2>
+            <LeadForm id="lead-hero" submit="Solicitar análisis gratuito" />
+          </div>
+        </div>
+      </section>
+
+      <section class="logo-bar" aria-label="Empresas que confían en WNRS">
+        <div class="wrap">
+          <h2>Líderes financieros de empresas globales y regionales confían en WNRS</h2>
+          <ul class="logos">
+            {logos.map(([file, name]) => (
+              <li><img src={`${base}img/${file}`} alt={name} /></li>
+            ))}
           </ul>
         </div>
-        <div class="card" id="solicite">
-          <h2>Solicite su análisis gratuito</h2>
-          <LeadForm id="analisis" submit="Solicitar análisis gratuito" />
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="stats" aria-label="Resultados">
-      {stats.map(([value, label]) => (
-        <div class="stat">
-          <strong>{value}</strong>
-          <span>{label}</span>
+      <section class="section">
+        <div class="wrap">
+          <h2>Cuando la cartera deja de entrar</h2>
+          <div class="pains">
+            {pains.map((pain) => (
+              <article><h3>{pain}</h3></article>
+            ))}
+          </div>
         </div>
-      ))}
-    </section>
+      </section>
 
-    <section class="section">
-      <div class="wrap">
-        <h2>Cobranza a la medida de su cartera</h2>
-        <p>Empresas que usan WNRS recuperan 3× más y 10× más rápido que equipos internos tradicionales.</p>
-        <div class="grid">
-          {points.map(([title, copy]) => (
-            <article>
-              <h3>{title}</h3>
-              <p>{copy}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section" style="padding-top: 0;">
-      <div class="wrap">
-        <blockquote class="quote">
-          <p>“Nuestra cartera morosa había crecido de forma descontrolada desde que subió el precio del dólar. WNRS cobró en un mes lo que mi equipo no pudo recuperar en un año.”</p>
-          <footer>Emilio Miranda, Microtech S.A. de C.V.</footer>
-        </blockquote>
-        <p><strong>44.2%</strong> de aumento en las cobranzas, reportado por clientes de WNRS.</p>
-        <h2>No espere: el tiempo reduce lo recuperable</h2>
-        <p>El castigo contable no recupera el dinero. Cada día que pasa, la probabilidad de cobro baja.</p>
-        <div class="decay">
-          {decay.map(([value, label]) => (
-            <div>
-              <strong>{value}</strong>
-              <span>{label}</span>
+      <section class="section section-white">
+        <div class="wrap split">
+          <div>
+            <h2>Cómo funciona</h2>
+            <div class="steps">
+              {steps.map(([title, copy], index) => (
+                <article>
+                  <span class="step-no">{index + 1}</span>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                </article>
+              ))}
             </div>
-          ))}
+          </div>
+          <img class="photo" src={`${base}img/ft03.jpg`} alt="Equipo de WNRS en una reunión de trabajo" width="1000" height="678" />
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section faq" id="preguntas">
-      <div class="wrap">
-        <h2>Preguntas frecuentes</h2>
-        {faqs.map(([q, a]) => (
-          <details>
-            <summary>{q}</summary>
-            <p>{a}</p>
-          </details>
-        ))}
-      </div>
-    </section>
+      <section class="section" id="servicios">
+        <div class="wrap">
+          <div class="split">
+            <div>
+              <h2>Servicios de cobranza a tu medida</h2>
+              <p>Cinco líneas para recuperar la cartera, de la gestión de facturas a la vía legal.</p>
+            </div>
+            <img class="photo" src={`${base}img/ft09.jpg`} alt="Conversación sobre una cartera vencida" width="1000" height="667" />
+          </div>
+          <div class="services">
+            {services.map(([title, copy]) => (
+              <article>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    <section class="section" id="contacto">
-      <div class="wrap cta-band">
-        <div>
-          <h2>Recupere su flujo de efectivo</h2>
-          <ul class="checks">
-            <li>Sin cobro = sin pago</li>
-            <li>Monitoreo 24/7 con portal en línea</li>
-            <li>Resultados en 15 días, en promedio</li>
-            <li>O llame al <a href="tel:+525553511693">+52 55 5351 1693</a></li>
+      <section class="section section-white">
+        <div class="wrap">
+          <h2>Sectores</h2>
+          <p>Desde PyMEs hasta multinacionales Fortune 500.</p>
+          <ul class="industries">
+            {industries.map((name) => <li>{name}</li>)}
           </ul>
         </div>
-        <div class="card">
-          <h2>Contáctenos hoy</h2>
-          <LeadForm id="contacto-form" submit="Empieza ya" />
-        </div>
-      </div>
-    </section>
-  </main>
+      </section>
 
-  <footer>
-    <div class="wrap foot">
-      <div>
-        <h2>Servicios</h2>
-        <ul>
-          <li>Cobranza administrativa</li>
-          <li>Cobranza especializada</li>
-          <li>Cobranza extrajudicial</li>
-          <li>Investigación financiera</li>
-          <li>Cobranza judicial</li>
-        </ul>
-      </div>
-      <div>
-        <h2>Sectores</h2>
-        <ul>
-          <li>PyMEs</li>
-          <li>Multinacionales</li>
-          <li>Gobierno</li>
-          <li>Retail</li>
-          <li>Servicios financieros</li>
-        </ul>
-      </div>
-      <div>
-        <h2>Contacto</h2>
-        <ul>
-          <li>México, Américas, Europa</li>
-          <li>Monitoreo 24/7</li>
-          <li>Portal en línea</li>
-          <li>Soporte multilingüe</li>
-          <li><a href="mailto:info@wnrs.com">info@wnrs.com</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="wrap legal">©2026 WNRS — World Net Recovery Systems. Todos los derechos reservados.</div>
-  </footer>
+      <section class="section">
+        <div class="wrap">
+          <h2>Nuestros clientes recuperan 3 veces más, 10 veces más rápido</h2>
+          <div class="stats">
+            {stats.map(([value, label]) => (
+              <div class="stat"><strong>{value}</strong><span>{label}</span></div>
+            ))}
+            <div class="stat"><strong>44.2%</strong><span>Aumento en las cobranzas</span></div>
+            <div class="stat"><strong>$28 millones</strong><span>Cobrados</span></div>
+          </div>
+          <div class="split" style="margin-top: 1rem;">
+            <blockquote class="quote">
+              <p>“Nuestra cartera morosa había crecido de forma descontrolada desde que subió el precio del dólar estadounidense. WNRS cobró durante un mes lo que mi equipo no pudo recuperar en un año.”</p>
+              <footer>Emilio Miranda, Microtech S.A. de C.V.</footer>
+            </blockquote>
+            <img class="photo" src={`${base}img/ft05.jpg`} alt="Especialista de WNRS revisa una cartera" width="1000" height="665" />
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-white">
+        <div class="wrap benefits">
+          <div>
+            <h2>Sin cobro, no hay pago</h2>
+            <ul>
+              {benefits.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+          <div class="success">
+            <strong>73%</strong>
+            <span>Tasa de éxito en recuperación</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section faq" id="preguntas">
+        <div class="wrap">
+          <h2>Preguntas frecuentes</h2>
+          {faqs.map(([q, a]) => (
+            <details>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="section urgency">
+        <div class="wrap">
+          <h2>No esperes más. El tiempo está en tu contra</h2>
+          <p>El castigo contable no recupera el dinero. Tu probabilidad de cobro baja con el tiempo.</p>
+          <div class="urgency-grid">
+            {odds.map(([value, label]) => (
+              <div><strong>{value}</strong><span>{label}</span></div>
+            ))}
+          </div>
+          <p style="margin-top: 1rem;"><a class="btn btn-white" href="#cierre">Recupera ahora, antes de que sea tarde</a></p>
+        </div>
+      </section>
+
+      <section class="section final" id="cierre">
+        <div class="wrap final-grid">
+          <div>
+            <h2>Recupera tu flujo de efectivo</h2>
+            <p>Pide el análisis gratuito hoy. Si no recuperamos, no pagas.</p>
+            <p><a href="tel:+525553511693">+52 55 5351 1693</a> · <a href="https://wa.me/525553511693">WhatsApp</a></p>
+          </div>
+          <div class="card">
+            <h2>Empieza ya</h2>
+            <LeadForm id="lead-cierre" submit="Empieza ya" />
+          </div>
+        </div>
+      </section>
+    </main>
+  </Chrome>
 </Base>

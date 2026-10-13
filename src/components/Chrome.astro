@@ -1,0 +1,63 @@
+---
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const phone = '+52 55 5351 1693';
+const tel = 'tel:+525553511693';
+const wa = 'https://wa.me/525553511693';
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href={base} aria-label="WNRS Latam">
+      <img src={`${base}img/logo-1.png`} width="150" height="48" alt="WNRS" />
+    </a>
+    <div class="bar-actions">
+      <a class="quiet" href={wa} target="_blank" rel="noopener">WhatsApp</a>
+      <a class="quiet" href={tel}>{phone}</a>
+      <a class="btn" href={`${base}#solicite`}>Solicitar cotización</a>
+    </div>
+  </div>
+</header>
+
+<slot />
+
+<footer class="site-footer">
+  <div class="wrap foot">
+    <div>
+      <h2>Servicios</h2>
+      <ul>
+        <li>Cobranza administrativa</li>
+        <li>Cobranza especializada</li>
+        <li>Cobranza extrajudicial</li>
+        <li>Investigación financiera</li>
+        <li>Cobranza judicial</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Sectores</h2>
+      <ul>
+        <li>PyMEs</li>
+        <li>Multinacionales</li>
+        <li>Gobierno</li>
+        <li>Retail</li>
+        <li>Servicios financieros</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Contacto</h2>
+      <ul>
+        <li>México, Américas, Europa</li>
+        <li><a href={tel}>{phone}</a></li>
+        <li><a href={wa} target="_blank" rel="noopener">WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap legal">©2026 WNRS — World Net Recovery Systems. Todos los derechos reservados.</div>
+</footer>
+
+<div class="dock">
+  <a href={wa} target="_blank" rel="noopener">WhatsApp</a>
+  <a href={tel}>Llamar</a>
+  <a class="btn" href={`${base}#solicite`}>Cotizar</a>
+</div>

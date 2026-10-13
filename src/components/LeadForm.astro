@@ -1,60 +1,186 @@
 ---
+import { AGES, AMOUNTS, BANKRUPTCY, COUNTRIES, YES_NO } from '../lib/lead';
+
 interface Props {
   id: string;
   submit: string;
 }
 
 const { id, submit } = Astro.props;
-const countries = [
-  'México',
-  'Brasil',
-  'Argentina',
-  'Colombia',
-  'Chile',
-  'Perú',
-  'Estados Unidos',
-  'Canadá',
-];
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const thanks = `${base}gracias/`;
 ---
 
-<form id={id} action="mailto:info@wnrs.com" method="post" enctype="text/plain">
-  <label for={`${id}-nombre`}>Nombre completo</label>
-  <input id={`${id}-nombre`} name="nombre" type="text" placeholder="Nombre completo" required autocomplete="name" />
+<form id={id} data-lead-form data-thanks={thanks} action={thanks} method="post" novalidate>
+  <p class="progress" data-progress>Paso 1 de 2</p>
+  <p class="form-error" data-error hidden></p>
 
-  <label for={`${id}-telefono`}>Teléfono</label>
-  <input id={`${id}-telefono`} name="telefono" type="tel" placeholder="Teléfono" required autocomplete="tel" />
+  <div class="hp" aria-hidden="true">
+    <label for={`${id}-website`}>Sitio web</label>
+    <input id={`${id}-website`} name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
 
-  <label for={`${id}-email`}>Email corporativo</label>
-  <input id={`${id}-email`} name="email" type="email" placeholder="Email corporativo" required autocomplete="email" />
+  <fieldset data-step="1">
+    <label class="field">Nombre
+      <input name="nombre" type="text" autocomplete="name" required />
+    </label>
+    <label class="field">Empresa
+      <input name="empresa" type="text" autocomplete="organization" required />
+    </label>
+    <label class="field">Email corporativo
+      <input name="email" type="email" autocomplete="email" required />
+    </label>
+    <label class="field">Teléfono
+      <input name="telefono" type="tel" autocomplete="tel" required />
+    </label>
+    <label class="field">País
+      <select name="pais" required>
+        <option value="">Selecciona tu país</option>
+        {COUNTRIES.map((country) => <option value={country}>{country}</option>)}
+      </select>
+    </label>
+    <button class="btn" type="button" data-next>Continuar</button>
+  </fieldset>
 
-  <label for={`${id}-pais`}>Seleccione su país</label>
-  <select id={`${id}-pais`} name="pais" required>
-    <option value="">Seleccione su país</option>
-    {countries.map((country) => <option value={country}>{country}</option>)}
-  </select>
-
-  <button class="btn" type="submit">{submit}</button>
-  <p class="status" data-status hidden>
-    Listo. Se abrió su correo con la solicitud para info@wnrs.com. Envíela para que WNRS la reciba.
-  </p>
+  <fieldset data-step="2" hidden>
+    <label class="field">Número de cuentas
+      <input name="cuentas" type="number" min="1" inputmode="numeric" required />
+    </label>
+    <label class="field">Monto aproximado
+      <select name="monto" required>
+        <option value="">Elige un rango</option>
+        {AMOUNTS.map((amount) => <option value={amount}>{amount}</option>)}
+      </select>
+    </label>
+    <label class="field">Antigüedad de la deuda
+      <select name="antiguedad" required>
+        <option value="">Elige un rango</option>
+        {AGES.map((age) => <option value={age}>{age}</option>)}
+      </select>
+    </label>
+    <fieldset>
+      <legend>¿Otra agencia antes?</legend>
+      <div class="choices">
+        {YES_NO.map((option) => (
+          <label><input type="radio" name="otra_agencia" value={option} required /> {option}</label>
+        ))}
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>¿Deudores en quiebra o ilocalizables?</legend>
+      <div class="choices">
+        {BANKRUPTCY.map((option) => (
+          <label><input type="radio" name="quiebra" value={option} required /> {option}</label>
+        ))}
+      </div>
+    </fieldset>
+    <div class="form-nav">
+      <button class="btn btn-white" type="button" data-back>Atrás</button>
+      <button class="btn" type="submit">{submit}</button>
+    </div>
+  </fieldset>
 </form>
 
 <script>
-  document.querySelectorAll('form').forEach((form) => {
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const data = new FormData(form);
-      const nombre = String(data.get('nombre') || '').trim();
-      const telefono = String(data.get('telefono') || '').trim();
-      const email = String(data.get('email') || '').trim();
-      const pais = String(data.get('pais') || '').trim();
-      if (!nombre || !telefono || !email || !pais) return;
+  import { LeadError, assertContact, submitLead, type Lead } from '../lib/lead';
 
-      const body = [`Nombre: ${nombre}`, `Teléfono: ${telefono}`, `Email: ${email}`, `País: ${pais}`].join('\n');
-      const href = `mailto:info@wnrs.com?subject=${encodeURIComponent('Solicitud de análisis gratuito — WNRS Latam')}&body=${encodeURIComponent(body)}`;
-      const status = form.querySelector('[data-status]');
-      if (status instanceof HTMLElement) status.hidden = false;
-      window.location.href = href;
+  function value(form: HTMLFormElement, name: string) {
+    const field = form.elements.namedItem(name);
+    if (field instanceof RadioNodeList) return field.value.trim();
+    if (field instanceof HTMLInputElement || field instanceof HTMLSelectElement) return field.value.trim();
+    return '';
+  }
+
+  function showError(form: HTMLFormElement, message: string) {
+    const error = form.querySelector('[data-error]');
+    if (!(error instanceof HTMLElement)) return;
+    error.hidden = !message;
+    error.textContent = message;
+  }
+
+  function showStep(form: HTMLFormElement, step: 1 | 2) {
+    const first = form.querySelector('[data-step="1"]');
+    const second = form.querySelector('[data-step="2"]');
+    const progress = form.querySelector('[data-progress]');
+    if (first instanceof HTMLElement) first.hidden = step !== 1;
+    if (second instanceof HTMLElement) second.hidden = step !== 2;
+    if (progress) progress.textContent = `Paso ${step} de 2`;
+  }
+
+  function fieldsValid(root: ParentNode) {
+    const fields = root.querySelectorAll('input, select, textarea');
+    for (const field of fields) {
+      if (!(field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement)) continue;
+      if (field.closest('.hp')) continue;
+      if (!field.checkValidity()) {
+        field.reportValidity();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  document.querySelectorAll<HTMLFormElement>('[data-lead-form]').forEach((form) => {
+    const step1 = form.querySelector('[data-step="1"]');
+    const step2 = form.querySelector('[data-step="2"]');
+    form.querySelector('[data-next]')?.addEventListener('click', () => {
+      if (!(step1 instanceof HTMLElement) || !fieldsValid(step1)) return;
+      try {
+        assertContact({
+          nombre: value(form, 'nombre'),
+          empresa: value(form, 'empresa'),
+          email: value(form, 'email'),
+          telefono: value(form, 'telefono'),
+          pais: value(form, 'pais') as Lead['pais'],
+        });
+      } catch (error) {
+        showError(form, error instanceof LeadError ? error.message : 'Revisa tus datos.');
+        return;
+      }
+      showError(form, '');
+      showStep(form, 2);
+    });
+    form.querySelector('[data-back]')?.addEventListener('click', () => {
+      showError(form, '');
+      showStep(form, 1);
+    });
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (value(form, 'website')) return;
+      if (step2 instanceof HTMLElement && step2.hidden) {
+        if (step1 instanceof HTMLElement && fieldsValid(step1)) showStep(form, 2);
+        return;
+      }
+      if (!(step1 instanceof HTMLElement) || !(step2 instanceof HTMLElement)) return;
+      if (!fieldsValid(step1)) {
+        showStep(form, 1);
+        fieldsValid(step1);
+        return;
+      }
+      if (!fieldsValid(step2)) return;
+      const submit = form.querySelector('[type="submit"]');
+      if (submit instanceof HTMLButtonElement) submit.disabled = true;
+      const lead = {
+        nombre: value(form, 'nombre'),
+        empresa: value(form, 'empresa'),
+        email: value(form, 'email'),
+        telefono: value(form, 'telefono'),
+        pais: value(form, 'pais'),
+        cuentas: value(form, 'cuentas'),
+        monto: value(form, 'monto'),
+        antiguedad: value(form, 'antiguedad'),
+        otra_agencia: value(form, 'otra_agencia'),
+        quiebra: value(form, 'quiebra'),
+      } as Lead;
+      try {
+        await submitLead(lead);
+        window.location.assign(form.dataset.thanks || 'gracias/');
+      } catch (error) {
+        showError(form, error instanceof LeadError ? error.message : 'No pudimos enviar tu solicitud. Intenta de nuevo.');
+        if (submit instanceof HTMLButtonElement) submit.disabled = false;
+      }
     });
   });
 </script>

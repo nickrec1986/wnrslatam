@@ -1,0 +1,17 @@
+---
+const target = Astro.props.target as string;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>WNRS Latam</title>
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={target} />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+  </head>
+  <body>
+    <p><a href={target}>Continuar a WNRS Latam</a></p>
+  </body>
+</html>
