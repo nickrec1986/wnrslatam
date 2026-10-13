@@ -56,7 +56,7 @@ const benefits = [
 const faqs = [
   ['¿Cómo funciona el modelo “sin cobro, no hay pago”?', 'Cobramos un porcentaje de lo que efectivamente recuperamos. Si no recuperamos, no pagas el servicio.'],
   ['¿Cuánto tardas en ver los primeros resultados?', 'En promedio, dentro de los primeros 15 días empieza a entrar el dinero recuperado.'],
-  ['¿Con qué tamaño de empresa trabajan?', 'Desde PyMEs hasta multinacionales Fortune 500. El equipo se arma según tu cartera.'],
+  ['¿Cobran solo a empresas?', 'No. Es cobranza B2B y B2C: carteras de empresas y de consumidores, desde PyMEs hasta multinacionales Fortune 500. El equipo se arma según tu cartera.'],
   ['¿Cómo cuidan la relación con mis clientes?', 'Los especialistas actúan como extensión de tu marca y mantienen el trato profesional.'],
 ];
 const odds = [
@@ -76,14 +76,14 @@ const jsonLd = {
       logo,
       telephone: '+52-55-5351-1693',
       areaServed: ['México', 'Américas', 'Europa'],
-      description: 'Especialistas en cobranza B2B. WNRS te ayuda a recuperar tu cartera vencida.',
+      description: 'Especialistas en cobranza B2B y B2C. WNRS te ayuda a recuperar tu cartera vencida.',
     },
     {
       '@type': 'WebPage',
-      name: 'WNRS – Recupera tu cartera vencida',
+      name: 'WNRS — Recupera tu cartera vencida | Cobranza B2B y B2C',
       url: pageUrl,
       inLanguage: 'es',
-      description: 'Recupera tu cartera vencida con WNRS. Análisis gratuito. Sin cobro, no hay pago.',
+      description: 'Cobranza B2B y B2C. las empresas que usan nuestros servicios recuperan 3 veces o más, hasta 10x más rápido que las agencias convencionales, sin sacrificar la experiencia del cliente.',
     },
     {
       '@type': 'FAQPage',
@@ -98,8 +98,8 @@ const jsonLd = {
 ---
 
 <Base
-  title="WNRS – Recupera tu cartera vencida | Especialistas en cobranza B2B"
-  description="Con más de 50 años y 1,200 profesionales, WNRS te ayuda a recuperar 3 veces más deudas y 10 veces más rápido. Análisis gratuito. Sin cobro, no hay pago."
+  title="WNRS — Recupera tu cartera vencida | Cobranza B2B y B2C"
+  description="Cobranza B2B y B2C. las empresas que usan nuestros servicios recuperan 3 veces o más, hasta 10x más rápido que las agencias convencionales, sin sacrificar la experiencia del cliente."
   jsonLd={jsonLd}
 >
   <Chrome>
@@ -107,10 +107,10 @@ const jsonLd = {
       <section class="hero" id="solicite">
         <div class="wrap hero-grid">
           <div class="hero-copy">
-            <p class="kicker">Cobranza B2B</p>
+            <p class="kicker">Cobranza B2B y B2C</p>
             <h1>Recupera tu cartera vencida y transfórmala en flujo de efectivo</h1>
             <p class="lede">
-              Con más de 50 años de experiencia y más de 1,200 profesionales, WNRS te ayuda a recuperar 3 veces más deudas, 10 veces más rápido que un equipo interno.
+              Con más de 50 años de experiencia y más de 1,200 profesionales, las empresas que usan nuestros servicios recuperan 3 veces o más, hasta 10x más rápido que las agencias convencionales, sin sacrificar la experiencia del cliente.
             </p>
             <a class="btn" href="#formulario">Recupera tus deudas ahora</a>
           </div>
@@ -184,7 +184,7 @@ const jsonLd = {
       <section class="section section-white">
         <div class="wrap">
           <h2>Sectores</h2>
-          <p>Desde PyMEs hasta multinacionales Fortune 500.</p>
+          <p>Cobranza B2B y B2C, desde PyMEs hasta multinacionales Fortune 500.</p>
           <ul class="industries">
             {industries.map((name) => <li>{name}</li>)}
           </ul>
@@ -193,7 +193,7 @@ const jsonLd = {
 
       <section class="section">
         <div class="wrap">
-          <h2>Nuestros clientes recuperan 3 veces más, 10 veces más rápido</h2>
+          <h2>Nuestros clientes recuperan 3 veces o más — 10 veces más rápido.</h2>
           <div class="stats">
             {stats.map(([value, label]) => (
               <div class="stat"><strong>{value}</strong><span>{label}</span></div>
