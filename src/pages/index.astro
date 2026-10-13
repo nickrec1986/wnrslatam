@@ -1,0 +1,184 @@
+---
+import Base from '../layouts/Base.astro';
+import LeadForm from '../components/LeadForm.astro';
+import '../styles/global.css';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const stats = [
+  ['#1', 'Agencia para clientes Fortune 500'],
+  ['50+', 'Años de rendimiento comprobado'],
+  ['30+', 'Países atendidos'],
+  ['20+', 'Idiomas cubiertos'],
+  ['300K+', 'Interacciones mensuales'],
+  ['99.99%', 'Tiempo de actividad del sistema'],
+];
+const points = [
+  ['Experiencia personalizada', 'Estrategias de cobranza alineadas a su marca, sus objetivos y más de 50 años de práctica. Una sola talla no alcanza.'],
+  ['Talento de clase mundial', 'Equipos entrenados para actuar como extensión de su marca, con resultados más rápidos y transparentes.'],
+  ['Presencia global y local', 'Cobertura en México, las Américas y Europa. Ocho hubs de recuperación mantienen el contacto con sus deudores.'],
+  ['Resultados en días', 'En promedio, los primeros recuperos aparecen en 15 días. El avance se monitorea en línea, 24/7.'],
+];
+const decay = [
+  ['73%', 'Después de 90 días'],
+  ['57%', 'Después de 6 meses'],
+  ['29%', 'Después de 1 año'],
+  ['13%', 'Después de 2 años'],
+];
+const faqs = [
+  ['¿Cómo funciona el modelo “sin cobro, no hay costo”?', 'Cobramos un porcentaje de lo efectivamente recuperado. Si no recuperamos, usted no paga el servicio.'],
+  ['¿Cuánto tardan los primeros resultados?', 'En promedio, dentro de los primeros 15 días empieza a entrar dinero recuperado.'],
+  ['¿Con qué tamaño de empresa trabajan?', 'Desde PyMEs hasta multinacionales Fortune 500. El equipo se arma según la cartera.'],
+  ['¿Cómo cuidan la relación con mis clientes?', 'Los especialistas actúan como extensión de su marca y mantienen el trato profesional.'],
+];
+---
+
+<Base
+  title="WNRS Latam — Recupere su cartera vencida"
+  description="WNRS ayuda a empresas en México y Latinoamérica a recuperar cartera vencida. Análisis gratuito, sin cobro si no hay recuperación."
+>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a href={`${base}`} aria-label="WNRS Latam">
+        <img class="logo" src={`${base}brand/logo.gif`} width="177" height="64" alt="WNRS" />
+      </a>
+      <div class="top-actions">
+        <a class="phone" href="tel:+525553511693">+52 55 5351 1693</a>
+        <a class="btn" href="#solicite">Solicitar cotización</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+        <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <h1>Recupere su cartera vencida y conviértala en flujo de efectivo</h1>
+          <p class="lede">
+            Con más de 50 años y 1,200 profesionales, WNRS ayuda a empresas a recuperar más deuda, y más rápido, que un equipo interno tradicional.
+          </p>
+          <ul class="checks">
+            <li>¿Sus clientes están atrasados con los pagos?</li>
+            <li>¿Se están negando a pagar?</li>
+            <li>¿Su cartera vencida creció?</li>
+          </ul>
+        </div>
+        <div class="card" id="solicite">
+          <h2>Solicite su análisis gratuito</h2>
+          <LeadForm id="analisis" submit="Solicitar análisis gratuito" />
+        </div>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="Resultados">
+      {stats.map(([value, label]) => (
+        <div class="stat">
+          <strong>{value}</strong>
+          <span>{label}</span>
+        </div>
+      ))}
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Cobranza a la medida de su cartera</h2>
+        <p>Empresas que usan WNRS recuperan 3× más y 10× más rápido que equipos internos tradicionales.</p>
+        <div class="grid">
+          {points.map(([title, copy]) => (
+            <article>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 0;">
+      <div class="wrap">
+        <blockquote class="quote">
+          <p>“Nuestra cartera morosa había crecido de forma descontrolada desde que subió el precio del dólar. WNRS cobró en un mes lo que mi equipo no pudo recuperar en un año.”</p>
+          <footer>Emilio Miranda, Microtech S.A. de C.V.</footer>
+        </blockquote>
+        <p><strong>44.2%</strong> de aumento en las cobranzas, reportado por clientes de WNRS.</p>
+        <h2>No espere: el tiempo reduce lo recuperable</h2>
+        <p>El castigo contable no recupera el dinero. Cada día que pasa, la probabilidad de cobro baja.</p>
+        <div class="decay">
+          {decay.map(([value, label]) => (
+            <div>
+              <strong>{value}</strong>
+              <span>{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq" id="preguntas">
+      <div class="wrap">
+        <h2>Preguntas frecuentes</h2>
+        {faqs.map(([q, a]) => (
+          <details>
+            <summary>{q}</summary>
+            <p>{a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="section" id="contacto">
+      <div class="wrap cta-band">
+        <div>
+          <h2>Recupere su flujo de efectivo</h2>
+          <ul class="checks">
+            <li>Sin cobro = sin pago</li>
+            <li>Monitoreo 24/7 con portal en línea</li>
+            <li>Resultados en 15 días, en promedio</li>
+            <li>O llame al <a href="tel:+525553511693">+52 55 5351 1693</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Contáctenos hoy</h2>
+          <LeadForm id="contacto-form" submit="Empieza ya" />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div>
+        <h2>Servicios</h2>
+        <ul>
+          <li>Cobranza administrativa</li>
+          <li>Cobranza especializada</li>
+          <li>Cobranza extrajudicial</li>
+          <li>Investigación financiera</li>
+          <li>Cobranza judicial</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Sectores</h2>
+        <ul>
+          <li>PyMEs</li>
+          <li>Multinacionales</li>
+          <li>Gobierno</li>
+          <li>Retail</li>
+          <li>Servicios financieros</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contacto</h2>
+        <ul>
+          <li>México, Américas, Europa</li>
+          <li>Monitoreo 24/7</li>
+          <li>Portal en línea</li>
+          <li>Soporte multilingüe</li>
+          <li><a href="mailto:info@wnrs.com">info@wnrs.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap legal">©2026 WNRS — World Net Recovery Systems. Todos los derechos reservados.</div>
+  </footer>
+</Base>

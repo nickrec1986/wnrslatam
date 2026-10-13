@@ -1,0 +1,60 @@
+---
+interface Props {
+  id: string;
+  submit: string;
+}
+
+const { id, submit } = Astro.props;
+const countries = [
+  'México',
+  'Brasil',
+  'Argentina',
+  'Colombia',
+  'Chile',
+  'Perú',
+  'Estados Unidos',
+  'Canadá',
+];
+---
+
+<form id={id} action="mailto:info@wnrs.com" method="post" enctype="text/plain">
+  <label for={`${id}-nombre`}>Nombre completo</label>
+  <input id={`${id}-nombre`} name="nombre" type="text" placeholder="Nombre completo" required autocomplete="name" />
+
+  <label for={`${id}-telefono`}>Teléfono</label>
+  <input id={`${id}-telefono`} name="telefono" type="tel" placeholder="Teléfono" required autocomplete="tel" />
+
+  <label for={`${id}-email`}>Email corporativo</label>
+  <input id={`${id}-email`} name="email" type="email" placeholder="Email corporativo" required autocomplete="email" />
+
+  <label for={`${id}-pais`}>Seleccione su país</label>
+  <select id={`${id}-pais`} name="pais" required>
+    <option value="">Seleccione su país</option>
+    {countries.map((country) => <option value={country}>{country}</option>)}
+  </select>
+
+  <button class="btn" type="submit">{submit}</button>
+  <p class="status" data-status hidden>
+    Listo. Se abrió su correo con la solicitud para info@wnrs.com. Envíela para que WNRS la reciba.
+  </p>
+</form>
+
+<script>
+  document.querySelectorAll('form').forEach((form) => {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const nombre = String(data.get('nombre') || '').trim();
+      const telefono = String(data.get('telefono') || '').trim();
+      const email = String(data.get('email') || '').trim();
+      const pais = String(data.get('pais') || '').trim();
+      if (!nombre || !telefono || !email || !pais) return;
+
+      const body = [`Nombre: ${nombre}`, `Teléfono: ${telefono}`, `Email: ${email}`, `País: ${pais}`].join('\n');
+      const href = `mailto:info@wnrs.com?subject=${encodeURIComponent('Solicitud de análisis gratuito — WNRS Latam')}&body=${encodeURIComponent(body)}`;
+      const status = form.querySelector('[data-status]');
+      if (status instanceof HTMLElement) status.hidden = false;
+      window.location.href = href;
+    });
+  });
+</script>
