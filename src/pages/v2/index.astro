@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import LeadForm from '../../components/LeadForm.astro';
 import HeroVideo from '../../components/HeroVideo.astro';
+import CaseTracking from '../../components/CaseTracking.astro';
 import '../../styles/v2.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/')
@@ -144,6 +145,8 @@ const odds = [
         </div>
       </div>
     </section>
+
+    <CaseTracking />
 
     <section class="band band-paper">
       <div class="wrap">

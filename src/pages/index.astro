@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Chrome from '../components/Chrome.astro';
 import LeadForm from '../components/LeadForm.astro';
+import CaseTracking from '../components/CaseTracking.astro';
 import '../styles/global.css';
 
 const base = import.meta.env.BASE_URL.endsWith('/')
@@ -160,6 +161,8 @@ const jsonLd = {
           <img class="photo" src={`${base}img/ft03.jpg`} alt="Equipo de WNRS en una reunión de trabajo" width="1000" height="678" />
         </div>
       </section>
+
+      <CaseTracking />
 
       <section class="section" id="servicios">
         <div class="wrap">

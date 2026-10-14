@@ -1,0 +1,104 @@
+---
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
+const points = [
+  'Herramienta propia de seguimiento de casos',
+  'Estadísticas de desempeño en tiempo real',
+  'Seguimiento de casos en tiempo real',
+  'Reportes de estatus en tiempo real',
+  'Tecnología segura y encriptada',
+];
+---
+
+<section class="track" aria-labelledby="seguimiento-casos">
+  <div class="track-inner">
+    <div>
+      <p class="track-kicker">Tecnología, seguridad y transparencia</p>
+      <h2 id="seguimiento-casos">Herramientas tecnológicas para tus casos: seguimiento en línea 24/7</h2>
+      <p>
+        Ves el avance de tus casos a cualquier hora. La herramienta propia muestra las estadísticas de desempeño,
+        el seguimiento y los reportes de estatus en tiempo real. Tecnología segura y encriptada, para que tengas
+        transparencia de cada caso.
+      </p>
+      <ul>
+        {points.map((point) => <li>{point}</li>)}
+      </ul>
+    </div>
+    <figure class="track-device">
+      <img
+        src={`${base}img/case-tracking.webp`}
+        width="1200"
+        height="774"
+        alt="Pantalla de seguimiento de casos con estadísticas de desempeño, estatus y reportes en tiempo real."
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
+  </div>
+</section>
+
+<style>
+  .track {
+    padding: 2.8rem 0;
+    background: #f3f7fb;
+    color: #3d3d3d;
+    font-family: Inter, Arial, system-ui, sans-serif;
+  }
+  .track-inner {
+    width: min(1120px, calc(100% - 2rem));
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.15fr);
+    gap: 1.5rem 2rem;
+    align-items: center;
+  }
+  .track-kicker {
+    margin: 0 0 0.45rem;
+    color: #1a5b8c;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .track h2 {
+    margin: 0 0 0.7rem;
+    color: #1b1b1b;
+    font-size: clamp(1.45rem, 2.3vw, 1.95rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .track p { margin: 0 0 0.9rem; }
+  .track ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .track li {
+    position: relative;
+    padding-left: 1.35rem;
+  }
+  .track li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.45em;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: #4eab85;
+  }
+  .track-device { margin: 0; }
+  .track-device img {
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(16, 42, 74, 0.16);
+  }
+  @media (max-width: 860px) {
+    .track-inner { grid-template-columns: 1fr; }
+  }
+</style>
